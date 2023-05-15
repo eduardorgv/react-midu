@@ -8,13 +8,15 @@ import { resetGameStorage, saveGameToStorage } from "./logic/storage";
 
 function App() {
   const [board, setBoard] = useState(() => {
-    const boardFromStorage = window.localStorage.getItem('board');
-    return boardFromStorage ? JSON.parse(boardFromStorage) : Array(9).fill(null);
+    const boardFromStorage = window.localStorage.getItem("board");
+    return boardFromStorage
+      ? JSON.parse(boardFromStorage)
+      : Array(9).fill(null);
   });
 
   const [turn, setTurn] = useState(() => {
-    const turnFromStorage = window.localStorage.getItem('turn');
-    return turnFromStorage ?? TURNS.X
+    const turnFromStorage = window.localStorage.getItem("turn");
+    return turnFromStorage ?? TURNS.X;
   });
 
   const [winner, setWinner] = useState(null); //null es que no hay ganador, false es que hay empate
@@ -38,22 +40,21 @@ function App() {
     if (newWinner) {
       confetti();
       setWinner(newWinner);
-    }else if(checkEndGame(newBoard)) {
-      setWinner(false) // Empate
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false); // Empate
     }
-    
   };
 
   /**
    * The function resets the game by setting the board to null, the turn to X, and the winner to null.
    */
   const resetGame = () => {
-    setBoard(Array(9).fill(null))
-    setTurn(TURNS.X)
-    setWinner(null)
+    setBoard(Array(9).fill(null));
+    setTurn(TURNS.X);
+    setWinner(null);
 
     resetGameStorage();
-  }
+  };
 
   return (
     <main className="board">
